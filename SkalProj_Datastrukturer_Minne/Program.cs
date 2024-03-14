@@ -74,47 +74,66 @@ namespace SkalProj_Datastrukturer_Minne
             List<string> theList = new List<string>();
             Console.WriteLine("Type +/- to add or remove phrase, 0 to quite");
             bool wannaType = true;
+            //Answer question 2 and 3
             //Capacity of list starts with 4 when the first element added in
             //if the number of elements in the list exceeds this capacity
             //the list will expand, doubling its size, exponentially
-            string input = Console.ReadLine() ?? "";
-            ArgumentException.ThrowIfNullOrEmpty(input);
-            char nav = input[0];//add or remove or quite
+            //Answer question 4
+            //The capacity doesn't increase at the same rate as element are added because
+            //it is unnecessary and expensive. When list capacity increases, it will copy 
+            //all elements to a new arrary and increase the internal array. It is not 
+            //performance optimized, especially for large lists. 
+            //Answer question 5
+            //The capacity of list didn't decrease when elements are removed from the list. 
+            //Answer question 6
+            //It is better to use array instead of list when we know exactly how many elements
+            //will be store and no dynmaic changes of capacity needed.
 
             while (wannaType)
-            {                                         
+            {
+                string input = Console.ReadLine() ?? "";
+                ArgumentException.ThrowIfNullOrEmpty(input);
+                char nav = input[0];//add or remove or quite            
                 switch (nav)
                 {
-                    //add input to the list
-                    case '+':
-                       
-                            string value = input.Substring(1);
-                            theList.Add(value);
-                        
-                        break;
-                     //remove input from the list
-                    case '-':
-                        if(input.Length > 1)
-                        {
-                            string value1 = input.Substring(1);
-                            theList.Remove(value1);
-                        }
-                        break;
+                    //left 
                     case '0':
                         wannaType = false;
                         break;
-                    default :
+                    //add input to the list
+                    case '+':
+                        if (input.Length > 2)
+                        {
+                            string value = input.Substring(1);
+                            theList.Add(value);
+                            Console.WriteLine(theList.Capacity);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input,add somethng after +");
+                        }
+
+                        break;
+                    //remove input from the list
+                    case '-':
+                        if (input.Length > 2)
+                        {
+                            string value1 = input.Substring(1);
+                            Console.WriteLine(theList.Remove(value1));
+                            Console.WriteLine(theList.Count);
+                            Console.WriteLine(theList.Capacity);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input,add somethng after -");
+                        }
+
+                        break;
+                    default:
                         Console.WriteLine("Write +/- with words or 0");
                         break;
                 }
-               
             }
-            Console.WriteLine(theList.Capacity);
-
-
-
-
-
         }
 
         /// <summary>
