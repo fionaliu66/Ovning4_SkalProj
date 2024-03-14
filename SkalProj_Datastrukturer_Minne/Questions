@@ -1,6 +1,47 @@
 Frågor:
-1. Hur fungerar stacken och heapen? Förklara gärna med exempel eller skiss på dess
-grundläggande funktion
+1. Hur fungerar stacken och heapen? Förklara gärna med exempel eller skiss på dess grundläggande funktion
+
+S:Operation system och programmering språk som c# delar upp minnet vanligtvis i två diskreta sektioner, Stack och heap. Där lagrar man data och hanteras på olika sätt. 
+Stacken är en linjär datastruktur som använder en princip som kallas för ”Last in, First Out(LIFO)”. Det vill säga att den senast tillagda data är den första som tas bort. 
+När man anropa en metod, system hämtar alltid minnet som krävs för dess parametrar (om finns) och dessa lokala variabler från stacken. 
+Efter metoden körde klart försvinner de parametrar och lokala variabler från stacken. 
+Stacken brukar vara snabbare än heapen när det gäller minnehantering och storleken på stacken är begränsad. 
+Heapen har inte samma ordnings struktur som stacken och hanterar data och allokering minne på ett dynamiskt sätt under programmets körning.
+När man skapar ett objekt dvs en instans av en klass genom att använda ”new” nyckelordet, hämtar system alltid minnet från heapen. 
+När den siata referensen till ett objekt försvinner, frigörs minnet som används av objekt (inte omedelbart).  
+Därför kan man allokera minnesutrymmet manuellt när man använder heapen och frigörs när saker inte längre behövs. 
+
+Till exempel: 
+Public void method(int i) { // när metod anropas skapades minne i stack 
+EgetClass c;                //en referens skapade men inte initieras i stack
+c = new EgetClass(i);       // minne skapades i heapen 
+}
+//själva objekt c ligger på heapen men referensen till objekt dvs variabel c sparas i stacken.
+
 2. Vad är Value Types respektive Reference Types och vad skiljer dem åt?
+Alla värdetyper(såsom int, double) skapas på stacken och alla referenstyper(tillex string,object) skapas på heapen. 
+Förutom de egenskaper som har nämnde tidigare representerar värdetyp en kopia av data det vill säga 
+när man skicka värdetyp som argument till en funktion skicka man egentliga en kopia av data. 
+Ursprungliga värdet kommer inte påverkas av ändring i kopian.  int i = 10; void Change(int x){x++;}
+Change(i);Console.WriteLine(i); out: 10;
+
+Referenstyp representerar en referens till data, dvs inte datan själv. 
+Flera variabler kan peka på samma data. När man skicka referenstyp som argument till en funktion, 
+ursprungliga objekt kommer också förändras om man gör ändringar inom funktionen. 
+Person p = new Person("Fiona"); 
+Person k = p;
+k.Name = "Eva";
+cw(p.Name); out:Eva
+Men trots att string är en referenstyp funkar string inte exakt samma som person klassen.
+string abc = "abc";
+void Change(string x)
+{
+    x += "d";
+}
+Change(abc);
+Console.WriteLine(abc); out: abc //inte abcd
+
 3. Följande metoder (se bild nedan) genererar olika svar. Den första returnerar 3, den
 andra returnerar 4, varför? 
+Anledning har jag förklarade innan (Svar till fråga 2), Int är värdetyp och Myint är referenstyp. Myint x och Myint y pekar på samma data,
+när man göra ändring på y kommer x ändras också. 
