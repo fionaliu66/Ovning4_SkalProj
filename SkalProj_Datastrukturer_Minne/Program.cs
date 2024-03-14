@@ -71,13 +71,50 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+            List<string> theList = new List<string>();
+            Console.WriteLine("Type +/- to add or remove phrase, 0 to quite");
+            bool wannaType = true;
+            //Capacity of list starts with 4 when the first element added in
+            //if the number of elements in the list exceeds this capacity
+            //the list will expand, doubling its size, exponentially
+            string input = Console.ReadLine() ?? "";
+            ArgumentException.ThrowIfNullOrEmpty(input);
+            char nav = input[0];//add or remove or quite
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            while (wannaType)
+            {                                         
+                switch (nav)
+                {
+                    //add input to the list
+                    case '+':
+                       
+                            string value = input.Substring(1);
+                            theList.Add(value);
+                        
+                        break;
+                     //remove input from the list
+                    case '-':
+                        if(input.Length > 1)
+                        {
+                            string value1 = input.Substring(1);
+                            theList.Remove(value1);
+                        }
+                        break;
+                    case '0':
+                        wannaType = false;
+                        break;
+                    default :
+                        Console.WriteLine("Write +/- with words or 0");
+                        break;
+                }
+               
+            }
+            Console.WriteLine(theList.Capacity);
 
-            //switch(nav){...}
+
+
+
+
         }
 
         /// <summary>
