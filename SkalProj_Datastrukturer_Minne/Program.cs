@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Diagnostics;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -106,7 +108,7 @@ namespace SkalProj_Datastrukturer_Minne
                         {
                             string value = input.Substring(1);
                             theList.Add(value);
-                            Console.WriteLine(theList.Capacity);
+                            Console.WriteLine("Current list capacity: "+theList.Capacity);
                         }
                         else
                         {
@@ -120,8 +122,8 @@ namespace SkalProj_Datastrukturer_Minne
                         {
                             string value1 = input.Substring(1);
                             Console.WriteLine(theList.Remove(value1));
-                            Console.WriteLine(theList.Count);
-                            Console.WriteLine(theList.Capacity);
+                            Console.WriteLine("Current list size: "+theList.Count);
+                            Console.WriteLine("Current list capacity: " + theList.Capacity);
                         }
                         else
                         {
@@ -146,6 +148,44 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            Queue icaQueue = new();
+            Console.WriteLine("Type 1 to add some one to the queue, 2 to remove and 0 to leave");
+            bool wannaType = true;
+            while (wannaType)
+            {
+                string input = Console.ReadLine() ?? "";
+                ArgumentException.ThrowIfNullOrEmpty(input);
+                char nav = input[0];
+                switch (nav)
+                {
+                    case '0':
+                        wannaType = false;
+                        break;
+                    case '1':
+                        //Enqueue
+                        string pQueue = Console.ReadLine() ?? "";
+                        if (!string.IsNullOrEmpty(pQueue))
+                        {
+                            icaQueue.Enqueue(input);
+                            Console.WriteLine("Current Quese Size:"+icaQueue.Count);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input");
+                        }                       
+                        break;
+                    case '2':
+                        //Dequeue
+                        icaQueue.Dequeue();
+                        Console.WriteLine("Current Quese Size:" + icaQueue.Count);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input");
+                        break;
+                }
+
+            }
+
         }
 
         /// <summary>
