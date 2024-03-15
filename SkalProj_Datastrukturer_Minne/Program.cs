@@ -198,6 +198,36 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            //F: Why it is not smart to use a stack instead for Queue
+            //S: Queue is "FiFO", just like how queue works in real life. 
+            //And since Stcak follow a FILO(Fist In Last Out) order, the last element will be the first one removed.
+            //In the case of ica, it is unreasonable to use a stack.
+
+            //reverse the string
+            Console.WriteLine("Type in the phrase which you want to reverse!");
+            string input = Console.ReadLine() ?? "";
+            if (string.IsNullOrEmpty(input))
+            {
+                Console.WriteLine("Write Something");
+            }
+            else
+            {
+                //use stack to reverse
+                Stack stack = new Stack();
+                foreach(char c in input)
+                {
+                    stack.Push(c);
+                }
+                string output = "";
+                //use foreach to traverse the stack or use while(stack.Count > 0)
+                foreach (var item in  stack)
+                {
+                    output += item;
+                    
+                }
+                Console.WriteLine(output);
+            }
+
         }
 
         static void CheckParanthesis()
