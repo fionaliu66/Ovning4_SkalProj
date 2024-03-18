@@ -108,7 +108,7 @@ namespace SkalProj_Datastrukturer_Minne
                         {
                             string value = input.Substring(1);
                             theList.Add(value);
-                            Console.WriteLine("Current list capacity: "+theList.Capacity);
+                            Console.WriteLine("Current list capacity: " + theList.Capacity);
                         }
                         else
                         {
@@ -122,7 +122,7 @@ namespace SkalProj_Datastrukturer_Minne
                         {
                             string value1 = input.Substring(1);
                             Console.WriteLine(theList.Remove(value1));
-                            Console.WriteLine("Current list size: "+theList.Count);
+                            Console.WriteLine("Current list size: " + theList.Count);
                             Console.WriteLine("Current list capacity: " + theList.Capacity);
                         }
                         else
@@ -167,12 +167,12 @@ namespace SkalProj_Datastrukturer_Minne
                         if (!string.IsNullOrEmpty(pQueue))
                         {
                             icaQueue.Enqueue(input);
-                            Console.WriteLine("Current Quese Size:"+icaQueue.Count);
+                            Console.WriteLine("Current Quese Size:" + icaQueue.Count);
                         }
                         else
                         {
                             Console.WriteLine("Invalid input");
-                        }                       
+                        }
                         break;
                     case '2':
                         //Dequeue
@@ -214,16 +214,16 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 //use stack to reverse
                 Stack stack = new Stack();
-                foreach(char c in input)
+                foreach (char c in input)
                 {
                     stack.Push(c);
                 }
                 string output = "";
                 //use foreach to traverse the stack or use while(stack.Count > 0)
-                foreach (var item in  stack)
+                foreach (var item in stack)
                 {
                     output += item;
-                    
+
                 }
                 Console.WriteLine(output);
             }
@@ -232,12 +232,79 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void CheckParanthesis()
         {
+          
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+            //Use stack to implement this kind of first in and last out logic.
+            bool wannaType = true;
+            Console.WriteLine("Press 1 to Check parenthesis,press 0 to quit");
+            string input = Console.ReadLine() ?? "";
+            ArgumentException.ThrowIfNullOrEmpty(input);
+            char choice = input[0];
+            while (wannaType)
+            {
+                switch (choice)
+                {
+                    case '1':
+                        CheckForClosure();
+                        break;
+                    case '0':
+                        wannaType = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invaid input");
+                        break;
+                }
+            }
+        }
+        static void CheckForClosure()
+        {
+            Dictionary<char, char> values = new Dictionary<char, char>{
+                        { ')','(' },
+                        { '}','{' },
+                        { ']','[' }
+            };
+            //read string from user input
+            string input = Console.ReadLine() ?? "";
+            ArgumentException.ThrowIfNullOrEmpty(input);
+            Stack stack = new();
+            for (int i = 0; i < input.Length; i++)
+            {
+                char tecken = input[i];
+                switch (tecken)
+                {
+                    case '(':
+                    case '[':
+                    case '{':
+                        stack.Push(tecken);
+                        break;
+                    case ')':
+                    case ']':
+                    case '}':
+                        //TODO, the stack may be enmpty, if the first charater in string is a back parenthes 
+                        if (stack.Count == 0) break;
+                        if (stack.Peek()!.Equals(values[tecken]))
+                        {
+                            //if the tecken is a last parentheis that has been added, remove it
+                            stack.Pop();
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
+            }
+            if (stack.Count == 0)
+            {
+                Console.WriteLine("Correct");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect");
+            }
         }
 
     }
