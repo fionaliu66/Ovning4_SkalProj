@@ -307,6 +307,27 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+
+
+        static int IterativeEven(int n)
+        {
+            int result = 2;
+            for (int i = 0; i < n - 1; i++)
+            {
+                result += 2;
+            }
+            return result;
+        }
+
+        static int RecursiveEven(int n)
+        {
+            if (n == 1)
+            {
+                return 2;
+            }
+            return RecursiveEven(n - 1) + 2;
+        }
+
     }
 }
 
